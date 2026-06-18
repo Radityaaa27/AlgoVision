@@ -1,36 +1,200 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+﻿# AlgoVision
+
+> Interactive Algorithm Visualization Platform for Computer Science Students.
+
+AlgoVision is an educational web application that helps students understand algorithms through interactive visualizations, step-by-step execution, complexity analysis, and theoretical explanations.
+
+The goal of this project is to bridge the gap between algorithm theory and practical understanding by providing an intuitive visual learning experience.
+
+---
+
+## Features
+
+### Graph Algorithms
+
+Currently supported:
+
+* Dijkstra's Algorithm
+* A* Search
+* Breadth First Search (BFS)
+* Depth First Search (DFS)
+
+### Interactive Visualization
+
+* Dynamic graph rendering
+* Node and edge visualization
+* Algorithm execution animation
+* Step-by-step traversal tracking
+* Path highlighting
+
+### Learning Support
+
+* Detailed algorithm explanations
+* Complexity analysis
+* Theoretical background
+* Educational notes and use cases
+
+### User Experience
+
+* Modern responsive interface
+* Dark / Light mode
+* Interactive controls
+* Real-time updates
+
+---
+
+## Tech Stack
+
+### Frontend
+
+* Next.js (App Router)
+* React
+* TypeScript
+* Tailwind CSS
+
+### State Management
+
+* Zustand
+
+### Visualization
+
+* Custom Graph Canvas
+
+---
+
+## Project Structure
+
+```text
+src/
+├── app/
+│   ├── layout.tsx
+│   ├── page.tsx
+│   └── globals.css
+│
+├── components/
+│   ├── GraphCanvas.tsx
+│   ├── Controls.tsx
+│   ├── StepExplanationPanel.tsx
+│   ├── ComplexityPanel.tsx
+│   ├── TheorySection.tsx
+│   ├── AlgorithmSelector.tsx
+│   ├── Sidebar.tsx
+│   ├── Header.tsx
+│   └── ThemeToggle.tsx
+│
+├── lib/
+│   ├── algorithms/
+│   │   ├── types.ts
+│   │   ├── dijkstra.ts
+│   │   ├── astar.ts
+│   │   ├── bfs.ts
+│   │   ├── dfs.ts
+│   │   ├── theory.ts
+│   │   └── index.ts
+│   │
+│   ├── store/
+│   │   └── graphStore.ts
+│   │
+│   └── data/
+│       └── defaultGraph.ts
+```
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Clone Repository
+
+```bash
+git clone https://github.com/yourusername/algovision.git
+```
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Run Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Educational Goals
 
-To learn more about Next.js, take a look at the following resources:
+AlgoVision is designed to help students:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* Understand graph traversal algorithms
+* Visualize shortest path computations
+* Learn algorithmic thinking
+* Compare algorithm behaviors
+* Study complexity analysis in an interactive way
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Planned Features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Algorithms
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* Prim's Algorithm
+* Kruskal's Algorithm
+* Bellman-Ford
+* Floyd-Warshall
+* AVL Tree
+* Red-Black Tree
+* Binary Search Tree
+
+### Learning Tools
+
+* Algorithm comparison mode
+* Execution speed controls
+* Interactive graph editor
+* Code visualization panel
+* Practice challenges
+
+### Advanced Features
+
+* User progress tracking
+* Saved visualizations
+* Classroom mode
+* AI-assisted explanations
+
+---
+
+## Research Motivation
+
+Many students struggle to understand algorithms from static textbook examples.
+
+AlgoVision aims to improve learning outcomes by transforming abstract algorithmic concepts into interactive visual experiences that can be explored step-by-step.
+
+This project combines principles from:
+
+* Computer Science Education
+* Human-Computer Interaction
+* Data Visualization
+* Software Engineering
+
+---
+
+## Author
+
+**Radit**
+
+Computer Science Student
+
+Aspiring Assistant Lecturer & Software Engineer
+
+---
+
+## License
+
+MIT License
