@@ -410,13 +410,6 @@ A: Not currently. A PWA version is planned.
 
 **Radit**
 
-- 🎓 Computer Science Student
-- 👨‍🏫 Aspiring Assistant Lecturer
-- 💻 Full-Stack Software Engineer
-- 📧 Email: [your-email@example.com]
-- 🔗 GitHub: [your-github-profile]
-- 🐦 Twitter: [your-twitter-handle]
-
 ---
 
 ## License
