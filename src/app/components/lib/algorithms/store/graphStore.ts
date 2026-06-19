@@ -1,7 +1,7 @@
 import { create } from "zustand";
-import { AlgoStep, GraphEdge, GraphNode } from "../lib/algorithms/types";
-import { AlgorithmId, algorithms } from "../lib/algorithms";
-import { defaultEdges, defaultEndId, defaultNodes, defaultStartId } from "../lib/graph/defaultGraph";
+import { AlgoStep, GraphEdge, GraphNode } from "../types";
+import { AlgorithmId, algorithms } from "../index";
+import { defaultEdges, defaultEndId, defaultNodes, defaultStartId } from "./data/defaultGraph";
 
 const LABELS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 

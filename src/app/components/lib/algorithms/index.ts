@@ -1,7 +1,7 @@
 import { runAStar } from "./astar";
 import { runBFS } from "./bfs";
 import { runDFS } from "./dfs";
-import { runDijkstra } from "./dijkstra";
+import { runDijkstra } from "./diijakstra";
 import { complexity, theory } from "./theory";
 import { AlgoStep, GraphEdge, GraphNode } from "./types";
 
