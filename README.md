@@ -10,6 +10,46 @@ The goal of this project is to bridge the gap between algorithm theory and pract
 
 ---
 
+## 🎬 Quick Start Demo
+
+### How to Use in 30 Seconds:
+
+```
+1️⃣ Click "Load Sample" → Pre-made graph appears
+2️⃣ Choose algorithm → Select Dijkstra, A*, BFS, or DFS
+3️⃣ Click "Set Start" → Pick a green starting node
+4️⃣ Click "Set End" → Pick a red goal node
+5️⃣ Press ▶️ Play → Watch it explore step-by-step
+6️⃣ Read explanations → Understand WHY each step happens
+```
+
+### Visual Overview:
+
+**Layout:**
+```
+┌─────────────────────────────────────────────────────────┐
+│  AlgoVision    🌙 Dark/Light Toggle                     │
+├──────────────┬──────────────────────────────────────────┤
+│              │                                          │
+│  Algorithm   │     Interactive Canvas                   │
+│  Selector    │     ┌──────────────────┐               │
+│              │     │  A ──4── B  C    │               │
+│  ▶️ Play     │     │  │      / \ \    │   📊 Step     │
+│  ⏪ Step     │     │  2    1  6  3    │   Info        │
+│  ⏩ Step     │     │  │      \│/      │               │
+│  🔄 Reset    │     │  C ──2── E ──4── G               │
+│              │     │         / \      │               │
+│  ⏱️ Speed    │     │        4   2     │               │
+│              │     └──────────────────┘               │
+│  📖 Theory   │                                          │
+│              │     🟢 Start: A                          │
+│  🔍 Complexity│    🔴 End: G                           │
+│              │                                          │
+└──────────────┴──────────────────────────────────────────┘
+```
+
+---
+
 ## Features
 
 ### Graph Algorithms
@@ -122,6 +162,34 @@ src/
 | `[algorithm].ts`  | Algorithm implementations; each exports `run()` function                  |
 | `theory.ts`       | Educational data: complexity analysis, descriptions, use cases            |
 | `GraphCanvas.tsx` | Main UI: canvas rendering, drag-to-move, click-to-add nodes               |
+
+---
+
+## 🎓 What You'll Learn
+
+| Algorithm | Best For | Time | Space |
+|-----------|----------|------|-------|
+| **Dijkstra** | GPS navigation, network routing | O((V+E)logV) | O(V) |
+| **A*** | Game AI, robot pathfinding | O((V+E)logV)* | O(V) |
+| **BFS** | Social networks, maze solving | O(V+E) | O(V) |
+| **DFS** | Topological sort, cycle detection | O(V+E) | O(V) |
+
+### Real Example:
+```
+🗺️ Find shortest route from City A → City G
+
+Starting graph:
+    A ──4── B
+    │      /
+    2    1
+    │  /
+    C ──2── E ──4── G
+
+✅ Dijkstra finds: A → C → E → G (Cost: 8)
+✅ See every step colored on the canvas
+✅ Read explanation for each decision
+✅ Compare complexity: Why not DFS?
+```
 
 ---
 

@@ -1,10 +1,22 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useGraphStore } from "./lib/algorithms/store/graphStore";
 import { StepExplanationPanel } from "./StepExplanationPanel";
 
+/**
+ * GraphCanvas Component
+ * 
+ * Main visualization panel featuring:
+ * - HTML5 Canvas for graph rendering
+ * - Interactive node placement (click to add)
+ * - Drag-to-move node support
+ * - Real-time algorithm visualization with color-coded states
+ * - Collapsible right panel for step details and complexity
+ */
 export function GraphCanvas() {
+  // ===== State from Zustand Store =====
   const nodes = useGraphStore((s) => s.nodes);
   const edges = useGraphStore((s) => s.edges);
   const addNode = useGraphStore((s) => s.addNode);
@@ -21,8 +33,10 @@ export function GraphCanvas() {
   const setStart = useGraphStore((s) => s.setStart);
   const setEnd = useGraphStore((s) => s.setEnd);
 
+  // ===== Local State =====
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [dragging, setDragging] = useState<string | null>(null);
+  const [showPanel, setShowPanel] = useState(true); // Toggle right panel visibility
 
   const currentStep = steps[stepIndex];
 
@@ -201,10 +215,10 @@ export function GraphCanvas() {
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
-      <div className="flex-1 flex gap-4 p-4 overflow-hidden">
-        {/* Canvas area */}
+      <div className="flex-1 flex gap-2 p-4 overflow-hidden">
+        {/* Canvas area - expands when panel is hidden */}
         <div
-          className={`flex-1 rounded-lg overflow-hidden border ${
+          className={`flex-1 rounded-lg overflow-hidden border transition-all ${
             theme === "dark" ? "border-zinc-800" : "border-zinc-200"
           }`}
         >
@@ -221,56 +235,71 @@ export function GraphCanvas() {
           />
         </div>
 
-        {/* Right panel */}
-        <div className="w-96 overflow-y-auto">
-          <StepExplanationPanel />
+        {/* Toggle Button - Always visible */}
+        <button
+          onClick={() => setShowPanel(!showPanel)}
+          className={`px-2 rounded-lg transition-colors flex items-center justify-center ${
+            theme === "dark"
+              ? "bg-zinc-800 hover:bg-zinc-700 text-white"
+              : "bg-zinc-100 hover:bg-zinc-200 text-black"
+          }`}
+          title={showPanel ? "Hide details" : "Show details"}
+        >
+          {showPanel ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
+        </button>
 
-          {/* Node/Edge context */}
-          <div
-            className={`mt-4 rounded-lg p-4 ${
-              theme === "dark" ? "bg-zinc-900 text-zinc-100" : "bg-zinc-50 text-zinc-900"
-            }`}
-          >
-            <h3 className="text-lg font-bold mb-3">Actions</h3>
-            <div className="flex flex-col gap-2">
-              <button
-                onClick={() => setPendingAssign(pendingAssign === "start" ? null : "start")}
-                className={`px-3 py-2 rounded text-sm font-medium transition-colors ${
-                  pendingAssign === "start"
-                    ? "bg-green-600 text-white"
-                    : theme === "dark"
-                      ? "bg-zinc-800 hover:bg-zinc-700 text-white"
-                      : "bg-zinc-100 hover:bg-zinc-200 text-black"
-                }`}
-              >
-                {pendingAssign === "start" ? "Select Start Node" : "Set Start"}
-              </button>
-              <button
-                onClick={() => setPendingAssign(pendingAssign === "end" ? null : "end")}
-                className={`px-3 py-2 rounded text-sm font-medium transition-colors ${
-                  pendingAssign === "end"
-                    ? "bg-red-600 text-white"
-                    : theme === "dark"
-                      ? "bg-zinc-800 hover:bg-zinc-700 text-white"
-                      : "bg-zinc-100 hover:bg-zinc-200 text-black"
-                }`}
-              >
-                {pendingAssign === "end" ? "Select End Node" : "Set End"}
-              </button>
+        {/* Right Panel - Collapsible */}
+        {showPanel && (
+          <div className="w-96 overflow-y-auto flex flex-col gap-3">
+            <StepExplanationPanel />
+
+            {/* Node/Edge context */}
+            <div
+              className={`rounded-lg p-4 ${
+                theme === "dark" ? "bg-zinc-900 text-zinc-100" : "bg-zinc-50 text-zinc-900"
+              }`}
+            >
+              <h3 className="text-lg font-bold mb-3">Actions</h3>
+              <div className="flex flex-col gap-2">
+                <button
+                  onClick={() => setPendingAssign(pendingAssign === "start" ? null : "start")}
+                  className={`px-3 py-2 rounded text-sm font-medium transition-colors ${
+                    pendingAssign === "start"
+                      ? "bg-green-600 text-white"
+                      : theme === "dark"
+                        ? "bg-zinc-800 hover:bg-zinc-700 text-white"
+                        : "bg-zinc-100 hover:bg-zinc-200 text-black"
+                  }`}
+                >
+                  {pendingAssign === "start" ? "Select Start Node" : "Set Start"}
+                </button>
+                <button
+                  onClick={() => setPendingAssign(pendingAssign === "end" ? null : "end")}
+                  className={`px-3 py-2 rounded text-sm font-medium transition-colors ${
+                    pendingAssign === "end"
+                      ? "bg-red-600 text-white"
+                      : theme === "dark"
+                        ? "bg-zinc-800 hover:bg-zinc-700 text-white"
+                        : "bg-zinc-100 hover:bg-zinc-200 text-black"
+                  }`}
+                >
+                  {pendingAssign === "end" ? "Select End Node" : "Set End"}
+                </button>
+              </div>
+
+              {startId && (
+                <div className="mt-3 text-sm p-2 rounded bg-green-900/20 border border-green-600/30">
+                  <p className={theme === "dark" ? "text-green-400" : "text-green-600"}>Start: {startId}</p>
+                </div>
+              )}
+              {endId && (
+                <div className="mt-2 text-sm p-2 rounded bg-red-900/20 border border-red-600/30">
+                  <p className={theme === "dark" ? "text-red-400" : "text-red-600"}>End: {endId}</p>
+                </div>
+              )}
             </div>
-
-            {startId && (
-              <div className="mt-3 text-sm p-2 rounded bg-green-900/20 border border-green-600/30">
-                <p className={theme === "dark" ? "text-green-400" : "text-green-600"}>Start: {startId}</p>
-              </div>
-            )}
-            {endId && (
-              <div className="mt-2 text-sm p-2 rounded bg-red-900/20 border border-red-600/30">
-                <p className={theme === "dark" ? "text-red-400" : "text-red-600"}>End: {endId}</p>
-              </div>
-            )}
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
