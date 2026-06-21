@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { AlgoStep, GraphEdge, GraphNode } from "../types";
 import { AlgorithmId, algorithms } from "../index";
 import { defaultEdges, defaultEndId, defaultNodes, defaultStartId } from "./data/defaultGraph";
+import { Language } from "./translations";
 
 const LABELS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -23,6 +24,7 @@ interface GraphState {
   isPlaying: boolean;
   speedMs: number;
   theme: "dark" | "light";
+  language: Language;
   selectedNodeId: string | null;
   selectedEdgeId: string | null;
   pendingAssign: "start" | "end" | null;
@@ -48,6 +50,7 @@ interface GraphState {
   goToStep: (index: number) => void;
   setSpeed: (ms: number) => void;
   toggleTheme: () => void;
+  setLanguage: (lang: Language) => void;
   loadSampleGraph: () => void;
   clearGraph: () => void;
 }
@@ -62,6 +65,17 @@ function recompute(nodes: GraphNode[], edges: GraphEdge[], startId: string | nul
   }
 }
 
+// Helper: Load language from localStorage (browser-safe)
+function getStoredLanguage(): Language {
+  if (typeof window === "undefined") return "en";
+  try {
+    const stored = localStorage.getItem("app-language");
+    return (stored === "en" || stored === "id") ? stored : "en";
+  } catch {
+    return "en";
+  }
+}
+
 export const useGraphStore = create<GraphState>((set) => ({
   nodes: defaultNodes,
   edges: defaultEdges,
@@ -73,6 +87,7 @@ export const useGraphStore = create<GraphState>((set) => ({
   isPlaying: false,
   speedMs: 900,
   theme: "dark",
+  language: "en",
   selectedNodeId: null,
   selectedEdgeId: null,
   pendingAssign: null,
@@ -200,6 +215,17 @@ export const useGraphStore = create<GraphState>((set) => ({
   goToStep: (index) => set((s) => ({ stepIndex: Math.min(Math.max(index, 0), Math.max(s.steps.length - 1, 0)) })),
   setSpeed: (ms) => set({ speedMs: ms }),
   toggleTheme: () => set((s) => ({ theme: s.theme === "dark" ? "light" : "dark" })),
+  setLanguage: (lang) => {
+    // Persist to localStorage if available
+    if (typeof window !== "undefined") {
+      try {
+        localStorage.setItem("app-language", lang);
+      } catch (e) {
+        console.warn("Failed to save language to localStorage:", e);
+      }
+    }
+    set({ language: lang });
+  },
 
   loadSampleGraph: () =>
     set((s) => ({

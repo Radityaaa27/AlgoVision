@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useGraphStore } from "./lib/algorithms/store/graphStore";
+import { getTranslation } from "./lib/algorithms/store/translations";
 import { StepExplanationPanel } from "./StepExplanationPanel";
 
 /**
@@ -28,10 +29,12 @@ export function GraphCanvas() {
   const selectNode = useGraphStore((s) => s.selectNode);
   const moveNode = useGraphStore((s) => s.moveNode);
   const theme = useGraphStore((s) => s.theme);
+  const language = useGraphStore((s) => s.language);
   const pendingAssign = useGraphStore((s) => s.pendingAssign);
   const setPendingAssign = useGraphStore((s) => s.setPendingAssign);
   const setStart = useGraphStore((s) => s.setStart);
   const setEnd = useGraphStore((s) => s.setEnd);
+  const t = (key: string) => getTranslation(key, language);
 
   // ===== Local State =====
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -243,7 +246,7 @@ export function GraphCanvas() {
               ? "bg-zinc-800 hover:bg-zinc-700 text-white"
               : "bg-zinc-100 hover:bg-zinc-200 text-black"
           }`}
-          title={showPanel ? "Hide details" : "Show details"}
+          title={showPanel ? t("graphCanvas.hideDetails") : t("graphCanvas.showDetails")}
         >
           {showPanel ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
         </button>
@@ -259,7 +262,7 @@ export function GraphCanvas() {
                 theme === "dark" ? "bg-zinc-900 text-zinc-100" : "bg-zinc-50 text-zinc-900"
               }`}
             >
-              <h3 className="text-lg font-bold mb-3">Actions</h3>
+              <h3 className="text-lg font-bold mb-3">{t("graphCanvas.actions")}</h3>
               <div className="flex flex-col gap-2">
                 <button
                   onClick={() => setPendingAssign(pendingAssign === "start" ? null : "start")}
@@ -271,7 +274,7 @@ export function GraphCanvas() {
                         : "bg-zinc-100 hover:bg-zinc-200 text-black"
                   }`}
                 >
-                  {pendingAssign === "start" ? "Select Start Node" : "Set Start"}
+                  {pendingAssign === "start" ? t("graphCanvas.selectStartNode") : t("graphCanvas.setStart")}
                 </button>
                 <button
                   onClick={() => setPendingAssign(pendingAssign === "end" ? null : "end")}
@@ -283,18 +286,18 @@ export function GraphCanvas() {
                         : "bg-zinc-100 hover:bg-zinc-200 text-black"
                   }`}
                 >
-                  {pendingAssign === "end" ? "Select End Node" : "Set End"}
+                  {pendingAssign === "end" ? t("graphCanvas.selectEndNode") : t("graphCanvas.setEnd")}
                 </button>
               </div>
 
               {startId && (
                 <div className="mt-3 text-sm p-2 rounded bg-green-900/20 border border-green-600/30">
-                  <p className={theme === "dark" ? "text-green-400" : "text-green-600"}>Start: {startId}</p>
+                  <p className={theme === "dark" ? "text-green-400" : "text-green-600"}>{t("graphCanvas.start")}: {startId}</p>
                 </div>
               )}
               {endId && (
                 <div className="mt-2 text-sm p-2 rounded bg-red-900/20 border border-red-600/30">
-                  <p className={theme === "dark" ? "text-red-400" : "text-red-600"}>End: {endId}</p>
+                  <p className={theme === "dark" ? "text-red-400" : "text-red-600"}>{t("graphCanvas.end")}: {endId}</p>
                 </div>
               )}
             </div>

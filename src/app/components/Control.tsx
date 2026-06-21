@@ -2,6 +2,7 @@
 
 import { Play, Pause, RotateCcw, ChevronRight, ChevronLeft, Plus, Trash2 } from "lucide-react";
 import { useGraphStore } from "./lib/algorithms/store/graphStore";
+import { getTranslation } from "./lib/algorithms/store/translations";
 
 export function Control() {
   const isPlaying = useGraphStore((s) => s.isPlaying);
@@ -15,6 +16,8 @@ export function Control() {
   const clearGraph = useGraphStore((s) => s.clearGraph);
   const loadSampleGraph = useGraphStore((s) => s.loadSampleGraph);
   const theme = useGraphStore((s) => s.theme);
+  const language = useGraphStore((s) => s.language);
+  const t = (key: string) => getTranslation(key, language);
 
   const btnClass = `p-2 rounded-lg transition-colors ${
     theme === "dark"
@@ -31,10 +34,10 @@ export function Control() {
             theme === "dark" ? "text-zinc-300" : "text-zinc-700"
           }`}
         >
-          Playback
+          {t("control.playback")}
         </p>
         <div className="flex gap-2">
-          <button onClick={stepBackward} className={btnClass} title="Step backward">
+          <button onClick={stepBackward} className={btnClass} title={t("control.stepBackward")}>
             <ChevronLeft size={18} />
           </button>
           <button
@@ -48,15 +51,15 @@ export function Control() {
                   ? "bg-green-900 hover:bg-green-800 text-white"
                   : "bg-green-100 hover:bg-green-200 text-green-700"
             }`}
-            title="Play / Pause"
+            title={t("control.play")}
           >
             {isPlaying ? <Pause size={18} /> : <Play size={18} />}
-            <span className="text-sm font-medium">{isPlaying ? "Pause" : "Play"}</span>
+            <span className="text-sm font-medium">{isPlaying ? t("control.pause") : t("control.play")}</span>
           </button>
-          <button onClick={stepForward} className={btnClass} title="Step forward">
+          <button onClick={stepForward} className={btnClass} title={t("control.stepForward")}>
             <ChevronRight size={18} />
           </button>
-          <button onClick={reset} className={btnClass} title="Reset">
+          <button onClick={reset} className={btnClass} title={t("control.reset")}>
             <RotateCcw size={18} />
           </button>
         </div>
@@ -69,7 +72,7 @@ export function Control() {
             theme === "dark" ? "text-zinc-300" : "text-zinc-700"
           }`}
         >
-          Speed: {speedMs}ms
+          {t("control.speed")}: {speedMs}{t("control.speedMs")}
         </label>
         <input
           type="range"
@@ -89,7 +92,7 @@ export function Control() {
             theme === "dark" ? "text-zinc-300" : "text-zinc-700"
           }`}
         >
-          Graph
+          {t("control.graph")}
         </p>
         <div className="flex flex-col gap-2">
           <button
@@ -97,14 +100,14 @@ export function Control() {
             className={`${btnClass} flex items-center justify-center gap-2`}
           >
             <Plus size={16} />
-            Load Sample
+            {t("control.loadSample")}
           </button>
           <button
             onClick={clearGraph}
             className={`${btnClass} flex items-center justify-center gap-2`}
           >
             <Trash2 size={16} />
-            Clear All
+            {t("control.clear")}
           </button>
         </div>
       </div>

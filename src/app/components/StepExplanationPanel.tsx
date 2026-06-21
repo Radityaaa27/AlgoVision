@@ -1,12 +1,15 @@
 "use client";
 
 import { useGraphStore } from "./lib/algorithms/store/graphStore";
+import { getTranslation } from "./lib/algorithms/store/translations";
 import { fmt } from "./lib/algorithms/types";
 
 export function StepExplanationPanel() {
   const stepIndex = useGraphStore((s) => s.stepIndex);
   const steps = useGraphStore((s) => s.steps);
   const theme = useGraphStore((s) => s.theme);
+  const language = useGraphStore((s) => s.language);
+  const t = (key: string) => getTranslation(key, language);
 
   const step = steps[stepIndex];
 
@@ -17,9 +20,9 @@ export function StepExplanationPanel() {
           theme === "dark" ? "bg-zinc-900 text-zinc-100" : "bg-zinc-50 text-zinc-900"
         }`}
       >
-        <h3 className="text-lg font-bold mb-3">Step Information</h3>
+        <h3 className="text-lg font-bold mb-3">{t("stepExplanation.title")}</h3>
         <p className={`text-sm ${theme === "dark" ? "text-zinc-400" : "text-zinc-600"}`}>
-          No steps available. Load a graph and run an algorithm.
+          {t("stepExplanation.noStepsAvailable")}
         </p>
       </div>
     );
@@ -35,7 +38,7 @@ export function StepExplanationPanel() {
         <p className={`text-xs font-semibold uppercase tracking-wide ${
           theme === "dark" ? "text-zinc-500" : "text-zinc-500"
         }`}>
-          Step {step.index + 1} of {steps.length}
+          {t("stepExplanation.step")} {step.index + 1} of {steps.length}
         </p>
         <h3 className="text-lg font-bold mt-1">{step.title}</h3>
       </div>
@@ -55,7 +58,7 @@ export function StepExplanationPanel() {
           {step.visited?.length > 0 && (
             <div>
               <p className={`font-semibold ${theme === "dark" ? "text-green-400" : "text-green-600"}`}>
-                Visited
+                {t("stepExplanation.visited")}
               </p>
               <p className={`font-mono text-xs mt-1 ${theme === "dark" ? "text-zinc-400" : "text-zinc-600"}`}>
                 {step.visited.join(", ") || "—"}
@@ -65,7 +68,7 @@ export function StepExplanationPanel() {
           {step.frontier?.length > 0 && (
             <div>
               <p className={`font-semibold ${theme === "dark" ? "text-orange-400" : "text-orange-600"}`}>
-                Frontier
+                {t("stepExplanation.queue")}
               </p>
               <p className={`font-mono text-xs mt-1 ${theme === "dark" ? "text-zinc-400" : "text-zinc-600"}`}>
                 {step.frontier.join(", ") || "—"}
@@ -78,7 +81,7 @@ export function StepExplanationPanel() {
       {step.distances && Object.keys(step.distances).length > 0 && (
         <div className="mt-4">
           <p className={`text-sm font-semibold ${theme === "dark" ? "text-zinc-300" : "text-zinc-700"}`}>
-            Distances
+            {t("stepExplanation.distance")}
           </p>
           <div className={`grid grid-cols-4 gap-2 mt-2 text-xs ${theme === "dark" ? "text-zinc-400" : "text-zinc-600"}`}>
             {Object.entries(step.distances)
