@@ -26,6 +26,7 @@ The goal of this project is to bridge the gap between algorithm theory and pract
 ### Visual Overview:
 
 **Layout:**
+
 ```
 ┌─────────────────────────────────────────────────────────┐
 │  AlgoVision    🌙 Dark/Light Toggle                     │
@@ -167,14 +168,15 @@ src/
 
 ## 🎓 What You'll Learn
 
-| Algorithm | Best For | Time | Space |
-|-----------|----------|------|-------|
-| **Dijkstra** | GPS navigation, network routing | O((V+E)logV) | O(V) |
-| **A*** | Game AI, robot pathfinding | O((V+E)logV)* | O(V) |
-| **BFS** | Social networks, maze solving | O(V+E) | O(V) |
-| **DFS** | Topological sort, cycle detection | O(V+E) | O(V) |
+| Algorithm    | Best For                          | Time           | Space |
+| ------------ | --------------------------------- | -------------- | ----- |
+| **Dijkstra** | GPS navigation, network routing   | O((V+E)logV)   | O(V)  |
+| **A\***      | Game AI, robot pathfinding        | O((V+E)logV)\* | O(V)  |
+| **BFS**      | Social networks, maze solving     | O(V+E)         | O(V)  |
+| **DFS**      | Topological sort, cycle detection | O(V+E)         | O(V)  |
 
 ### Real Example:
+
 ```
 🗺️ Find shortest route from City A → City G
 
