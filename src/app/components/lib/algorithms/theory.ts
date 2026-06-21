@@ -1,4 +1,8 @@
-export const theory: Record<string, { overview: string; time: string; space: string; best: string; worst: string; use: string[] }> = {
+import { Language } from "./store/translations";
+
+type TheoryData = { overview: string; time: string; space: string; best: string; worst: string; use: string[] };
+
+const theoryEN: Record<string, TheoryData> = {
   bfs: {
     overview:
       "Breadth-First Search explores nodes layer by layer using a queue (FIFO). It processes all neighbors before moving deeper.",
@@ -55,6 +59,70 @@ export const theory: Record<string, { overview: string; time: string; space: str
       "Resource-constrained search (find goal quickly)",
     ],
   },
+};
+
+const theoryID: Record<string, TheoryData> = {
+  bfs: {
+    overview:
+      "Pencarian Luas Pertama menjelajahi node layer demi layer menggunakan antrian (FIFO). Ini memproses semua tetangga sebelum bergerak lebih dalam.",
+    time: "O(V + E)",
+    space: "O(V)",
+    best: "Menemukan jalur terpendek di grafik yang tidak berbobot dalam waktu linier.",
+    worst: "Jika grafik padat atau semua node adalah tetangga, antrian bisa menjadi sangat besar.",
+    use: [
+      "Jalur terpendek di grafik yang tidak berbobot",
+      "Pemecahan labirin (semua gerakan biaya 1)",
+      "Analisis jaringan sosial (derajat pemisahan)",
+      "Eksplorasi level web crawler",
+    ],
+  },
+  dfs: {
+    overview:
+      "Pencarian Mendalam Pertama berkomitmen pada satu jalur sedalam mungkin sebelum kembali, menggunakan tumpukan (LIFO).",
+    time: "O(V + E)",
+    space: "O(V) untuk kedalaman rekursi atau tumpukan eksplisit",
+    best: "Sangat efisien ruang untuk grafik yang lebar; baik untuk pengurutan topologis dan deteksi siklus.",
+    worst: "Mungkin menjelajahi satu cabang panjang sepenuhnya sebelum menemukan tujuan; bisa lebih lambat pada grafik tujuan jarang.",
+    use: [
+      "Pengurutan topologis (pengurutan DAG)",
+      "Deteksi siklus",
+      "Komponen yang terhubung kuat (Tarjan, Kosaraju)",
+      "Pemecahan teka-teki (N-queens, Sudoku)",
+    ],
+  },
+  dijkstra: {
+    overview:
+      "Algoritma Dijkstra menemukan jalur terpendek di grafik berbobot dengan selalu memilih node yang tidak dikunjungi dengan jarak terkecil.",
+    time: "O((V + E) log V) dengan binary heap; O(V²) dengan array",
+    space: "O(V)",
+    best: "Jalur terpendek yang dijamin di grafik dengan bobot non-negatif; efisien dengan implementasi priority queue yang baik.",
+    worst: "Jika semua tepi memiliki berat 1, BFS lebih cepat. Gagal dengan bobot negatif.",
+    use: [
+      "Sistem GPS/navigasi (rute berkendara terpendek)",
+      "Protokol routing jaringan (OSPF)",
+      "Pathfinding robot di medan berbobot",
+      "AI game (pencarian jalur terpendek yang menyadari biaya)",
+    ],
+  },
+  astar: {
+    overview:
+      "A* menggabungkan jarak greedy Dijkstra dengan perkiraan heuristik ke tujuan, menjelajahi lebih cerdas dari Dijkstra murni.",
+    time: "O((V + E) log V) kasus terbaik dengan heuristik yang baik; kasus terburuk O(V²) jika heuristik buruk",
+    space: "O(V) untuk set terbuka dan tertutup",
+    best: "Sangat efisien ketika heuristik yang dapat diterima ada (mis., jarak Euclidean).",
+    worst: "Jika heuristik mengerikan (selalu 0), ini merosot menjadi Dijkstra. Jika heuristik tidak dapat diterima, optimalitas hilang.",
+    use: [
+      "Pathfinding game video (terbaik untuk kueri tunggal)",
+      "Pemecahan teka-teki (15-puzzle, ruang keadaan Rubik's cube)",
+      "Perencanaan gerakan robot dengan heuristik posisi",
+      "Pencarian yang dibatasi sumber daya (temukan tujuan dengan cepat)",
+    ],
+  },
+};
+
+export const theory: Record<Language, Record<string, TheoryData>> = {
+  en: theoryEN,
+  id: theoryID,
 };
 
 export const complexity: Record<string, { time: string; space: string }> = {

@@ -2,14 +2,14 @@
 
 import { useGraphStore } from "./lib/algorithms/store/graphStore";
 import { getTranslation } from "./lib/algorithms/store/translations";
-import { theory, complexity } from "./lib/algorithms/theory";
+import { theory } from "./lib/algorithms/theory";
 
 export function TheorySection() {
   const algorithmId = useGraphStore((s) => s.algorithmId);
   const theme = useGraphStore((s) => s.theme);
   const language = useGraphStore((s) => s.language);
   const t = (key: string) => getTranslation(key, language);
-  const algo = theory[algorithmId] || {};
+  const algo = theory[language]?.[algorithmId] || {};
 
   return (
     <div

@@ -1,7 +1,7 @@
 "use client";
 
 import { useGraphStore } from "./lib/algorithms/store/graphStore";
-import { getTranslation } from "./lib/algorithms/store/translations";
+import { getTranslation, translateStepExplanation } from "./lib/algorithms/store/translations";
 import { fmt } from "./lib/algorithms/types";
 
 export function StepExplanationPanel() {
@@ -49,7 +49,7 @@ export function StepExplanationPanel() {
         }`}
       >
         <p className={`text-sm ${theme === "dark" ? "text-blue-300" : "text-blue-700"}`}>
-          {step.why}
+          {translateStepExplanation(step.why, language)}
         </p>
       </div>
 
