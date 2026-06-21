@@ -1,4 +1,4 @@
-import { GraphEdge, GraphNode } from "../algorithms/types";
+import { GraphEdge, GraphNode } from "../../types";
 
 export const defaultNodes: GraphNode[] = [
   { id: "A", label: "A", x: 80, y: 220 },
